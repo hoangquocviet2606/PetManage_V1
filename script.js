@@ -120,6 +120,7 @@ function renderTableData() {
       <td scope="col"><i class="bi ${petArr[i].vaccinatedClass}-circle-fill"></i></td>
       <td scope="col"><i class="bi ${petArr[i].dewormedClass}-circle-fill"></i></td>
       <td scope="col"><i class="bi ${petArr[i].sterilizedClass}-circle-fill"></i></td>
+      <td scope="col">?</td>
       <td scope="col">${petArr[i].date}</td>
       <td>
         <button type="button" class="btn btn-danger" onclick="deletePet('${petArr[i].id}')">Delete</button>
@@ -141,7 +142,7 @@ const deletePet = (petId) => {
     }
   }
 };
-
+//Show Healthy Pet
 const btnHealthy = document.getElementById("healthy-btn");
 btnHealthy.addEventListener("click", function () {
   const healthyPetArr = petArr.filter(
@@ -164,6 +165,7 @@ btnHealthy.addEventListener("click", function () {
         <td scope="col"><i class="bi ${healthyPetArr[i].vaccinatedClass}-circle-fill"></i></td>
         <td scope="col"><i class="bi ${healthyPetArr[i].dewormedClass}-circle-fill"></i></td>
         <td scope="col"><i class="bi ${healthyPetArr[i].sterilizedClass}-circle-fill"></i></td>
+        <td scope="col">?</td>
         <td scope="col">${healthyPetArr[i].date}</td>
         <td>
           <button type="button" class="btn btn-danger" onclick="deletePet('${healthyPetArr[i].id}')">Delete</button>
@@ -173,12 +175,11 @@ btnHealthy.addEventListener("click", function () {
     }
     tbody.innerHTML = str;
   }
-  if (btnHealthy.innerHTML === "Show Healthy Pet") {
-    btnHealthy.innerHTML = "Show All Pet";
-
-    renderTableData();
-  } else {
-    btnHealthy.innerHTML = "Show Healthy Pet";
+  if (btnHealthy.innerText === "Show Healthy Pet") {
+    btnHealthy.innerText = "Show All Pet";
     renderHealthyPet();
+  } else {
+    btnHealthy.innerText = "Show Healthy Pet";
+    renderTableData();
   }
 });
