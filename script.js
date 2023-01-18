@@ -44,6 +44,7 @@ function submit() {
   data.vaccinatedClass = vaccinatedInput.checked == true ? "bi-check" : "bi-x";
   data.dewormedClass = dewormedInput.checked == true ? "bi-check" : "bi-x";
   data.sterilizedClass = sterilizedInput.checked == true ? "bi-check" : "bi-x";
+  data.bmi = "?";
   // get Date Time
   let myYear = new Date().getFullYear();
   let myMonth = new Date().getMonth() + 1;
@@ -120,7 +121,7 @@ function renderTableData() {
       <td scope="col"><i class="bi ${petArr[i].vaccinatedClass}-circle-fill"></i></td>
       <td scope="col"><i class="bi ${petArr[i].dewormedClass}-circle-fill"></i></td>
       <td scope="col"><i class="bi ${petArr[i].sterilizedClass}-circle-fill"></i></td>
-      <td scope="col">?</td>
+      <td scope="col">${petArr[i].bmi}</td>
       <td scope="col">${petArr[i].date}</td>
       <td>
         <button type="button" class="btn btn-danger" onclick="deletePet('${petArr[i].id}')">Delete</button>
@@ -165,7 +166,7 @@ btnHealthy.addEventListener("click", function () {
         <td scope="col"><i class="bi ${healthyPetArr[i].vaccinatedClass}-circle-fill"></i></td>
         <td scope="col"><i class="bi ${healthyPetArr[i].dewormedClass}-circle-fill"></i></td>
         <td scope="col"><i class="bi ${healthyPetArr[i].sterilizedClass}-circle-fill"></i></td>
-        <td scope="col">?</td>
+        <td scope="col">${healthyPetArr[i].bmi}</td>
         <td scope="col">${healthyPetArr[i].date}</td>
         <td>
           <button type="button" class="btn btn-danger" onclick="deletePet('${healthyPetArr[i].id}')">Delete</button>
@@ -182,4 +183,25 @@ btnHealthy.addEventListener("click", function () {
     btnHealthy.innerText = "Show Healthy Pet";
     renderTableData();
   }
+});
+//Calculate BMI
+const bmiBtn = document.getElementById("bmi");
+function calc() {
+  for (let i = 0; i < petArr.length; i++) {
+    if (petArr[i].type === "Dog") {
+      petArr[i].bmi = (
+        (petArr[i].weight * 703) /
+        petArr[i].length ** 2
+      ).toFixed(2);
+    } else {
+      petArr[i].bmi = (
+        (petArr[i].weight * 886) /
+        petArr[i].length ** 2
+      ).toFixed(2);
+    }
+  }
+}
+bmiBtn.addEventListener("click", function () {
+  calc();
+  renderTableData();
 });
