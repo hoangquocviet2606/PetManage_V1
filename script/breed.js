@@ -23,13 +23,22 @@ submitBtn.addEventListener("click", function () {
 
 function validate(data) {
   let isValidate = true;
+  //validate đã nhập dữ liệu breed
   if (breedInput.value.trim().length === 0) {
     alert("Please input");
     isValidate = false;
   }
+  //validate đã nhập dữ liệu type
   if (data.type === "Select Type") {
     alert("Please select type");
     isValidate = false;
+  }
+  //validate trùng dữ liệu breed và type
+  for (let i = 0; i < breedArr.length; i++) {
+    if (data.breed == breedArr[i].breed && data.type == breedArr[i].type) {
+      alert("Breed already exist ");
+      isValidate = false;
+    }
   }
   return isValidate;
 }
